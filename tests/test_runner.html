@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Test Runner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-results {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .pass {
+            color: #2ecc71;
+        }
+        .fail {
+            color: #e74c3c;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .summary {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Frontend Test Runner</h1>
+        <button onclick="window.location.reload()">Run Tests</button>
+        <div id="testResults" class="test-results">
+            <p>Running tests...</p>
+        </div>
+    </div>
+
+    <!-- Include test framework -->
+    <script src="frontend_test.js"></script>
+
+    <script>
+        // Capture console.log output
+        const testResults = document.getElementById('testResults');
+        const originalLog = console.log;
+        
+        console.log = function(message) {
+            originalLog.apply(console, arguments);
+            
+            const p = document.createElement('p');
+            if (message.includes('✓')) {
+                p.className = 'pass';
+            } else if (message.includes('✗')) {
+                p.className = 'fail';
+            }
+            p.textContent = message;
+            testResults.appendChild(p);
+        };
+    </script>
+</body>
+</html>

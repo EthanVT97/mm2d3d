@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7K Lottery - Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <nav class="admin-nav">
+        <div class="nav-left">
+            <div class="logo">7K Lottery - Admin</div>
+        </div>
+        <div class="nav-right">
+            <span class="admin-name">Admin Name</span>
+            <button class="logout-btn">ထွက်ရန်</button>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <div class="sidebar">
+            <ul class="menu">
+                <li class="active" data-page="dashboard">
+                    <i class="fas fa-chart-line"></i> ပင်မစာမျက်နှာ
+                </li>
+                <li data-page="agents">
+                    <i class="fas fa-users"></i> ကိုယ်စားလှယ်များ
+                </li>
+                <li data-page="users">
+                    <i class="fas fa-user"></i> သုံးစွဲသူများ
+                </li>
+                <li data-page="transactions">
+                    <i class="fas fa-exchange-alt"></i> ငွေကြေးမှတ်တမ်း
+                </li>
+                <li data-page="lottery">
+                    <i class="fas fa-ticket-alt"></i> ထီထိုးမှတ်တမ်း
+                </li>
+                <li data-page="results">
+                    <i class="fas fa-trophy"></i> ထီပေါက်စဉ်များ
+                </li>
+                <li data-page="accounts">
+                    <i class="fas fa-university"></i> ဘဏ်အကောင့်များ
+                </li>
+                <li data-page="reports">
+                    <i class="fas fa-file-alt"></i> အစီရင်ခံစာများ
+                </li>
+            </ul>
+        </div>
+
+        <main class="main-content">
+            <!-- Dashboard Overview -->
+            <div class="page-content" id="dashboard-page">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>စုစုပေါင်းသုံးစွဲသူ</h3>
+                        <div class="stat-value" id="totalUsers">0</div>
+                        <div class="stat-change">+0 ယနေ့</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>ကိုယ်စားလှယ်များ</h3>
+                        <div class="stat-value" id="totalAgents">0</div>
+                        <div class="stat-change">+0 ယနေ့</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>ယနေ့ထီထိုးငွေ</h3>
+                        <div class="stat-value" id="todayBets">0 Ks</div>
+                        <div class="stat-change">+0% မနေ့ထက်</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>ယနေ့အမြတ်</h3>
+                        <div class="stat-value" id="todayProfit">0 Ks</div>
+                        <div class="stat-change">+0% မနေ့ထက်</div>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h2>နောက်ဆုံးလုပ်ဆောင်ချက်များ</h2>
+                    <div class="activity-list" id="recentActivities">
+                        <!-- Activities will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agents Management -->
+            <div class="page-content hidden" id="agents-page">
+                <div class="page-header">
+                    <h2>ကိုယ်စားလှယ်များ စီမံခန့်ခွဲရန်</h2>
+                    <button class="add-btn" id="addAgentBtn">ကိုယ်စားလှယ်အသစ်ထည့်ရန်</button>
+                </div>
+                <div class="agents-list" id="agentsList">
+                    <!-- Agents will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Users Management -->
+            <div class="page-content hidden" id="users-page">
+                <div class="page-header">
+                    <h2>သုံးစွဲသူများ စီမံခန့်ခွဲရန်</h2>
+                    <div class="search-box">
+                        <input type="text" placeholder="ဖုန်းနံပါတ်ဖြင့်ရှာရန်...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="users-list" id="usersList">
+                    <!-- Users will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Transactions -->
+            <div class="page-content hidden" id="transactions-page">
+                <div class="page-header">
+                    <h2>ငွေကြေးမှတ်တမ်းများ</h2>
+                    <div class="filters">
+                        <select id="transactionType">
+                            <option value="all">အားလုံး</option>
+                            <option value="deposit">ငွေသွင်း</option>
+                            <option value="withdraw">ငွေထုတ်</option>
+                        </select>
+                        <input type="date" id="transactionDate">
+                    </div>
+                </div>
+                <div class="transactions-list" id="transactionsList">
+                    <!-- Transactions will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Lottery Management -->
+            <div class="page-content hidden" id="lottery-page">
+                <div class="page-header">
+                    <h2>ထီထိုးမှတ်တမ်းများ</h2>
+                    <div class="filters">
+                        <select id="lotteryType">
+                            <option value="all">အားလုံး</option>
+                            <option value="2D">2D</option>
+                            <option value="3D">3D</option>
+                            <option value="Thai">Thai</option>
+                            <option value="Lao">Lao</option>
+                        </select>
+                        <input type="date" id="lotteryDate">
+                    </div>
+                </div>
+                <div class="lottery-list" id="lotteryList">
+                    <!-- Lottery records will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Results Management -->
+            <div class="page-content hidden" id="results-page">
+                <div class="page-header">
+                    <h2>ထီပေါက်စဉ်များ စီမံခန့်ခွဲရန်</h2>
+                    <button class="add-btn" id="addResultBtn">ထီပေါက်စဉ်အသစ်ထည့်ရန်</button>
+                </div>
+                <div class="results-list" id="resultsList">
+                    <!-- Results will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Bank Accounts -->
+            <div class="page-content hidden" id="accounts-page">
+                <div class="page-header">
+                    <h2>ဘဏ်အကောင့်များ စီမံခန့်ခွဲရန်</h2>
+                    <button class="add-btn" id="addAccountBtn">အကောင့်အသစ်ထည့်ရန်</button>
+                </div>
+                <div class="accounts-list" id="accountsList">
+                    <!-- Bank accounts will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Reports -->
+            <div class="page-content hidden" id="reports-page">
+                <div class="page-header">
+                    <h2>အစီရင်ခံစာများ</h2>
+                    <div class="report-filters">
+                        <select id="reportType">
+                            <option value="daily">နေ့စဉ်</option>
+                            <option value="weekly">အပတ်စဉ်</option>
+                            <option value="monthly">လစဉ်</option>
+                        </select>
+                        <button class="generate-btn">အစီရင်ခံစာထုတ်ရန်</button>
+                    </div>
+                </div>
+                <div class="reports-content" id="reportsContent">
+                    <!-- Reports will be populated by JavaScript -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="addAgentModal" class="modal">
+        <div class="modal-content">
+            <h2>ကိုယ်စားလှယ်အသစ်ထည့်ရန်</h2>
+            <form id="addAgentForm">
+                <input type="text" placeholder="အသုံးပြုသူအမည်" required>
+                <input type="password" placeholder="စကားဝှက်" required>
+                <input type="number" placeholder="အစပိုင်းလက်ကျန်ငွေ" required>
+                <button type="submit">ထည့်သွင်းမည်</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addResultModal" class="modal">
+        <div class="modal-content">
+            <h2>ထီပေါက်စဉ်အသစ်ထည့်ရန်</h2>
+            <form id="addResultForm">
+                <select name="lottery_type" required>
+                    <option value="2D">2D</option>
+                    <option value="3D">3D</option>
+                    <option value="Thai">Thai</option>
+                    <option value="Lao">Lao</option>
+                </select>
+                <input type="text" placeholder="ပေါက်ဂဏန်း" required>
+                <input type="date" required>
+                <button type="submit">ထည့်သွင်းမည်</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addAccountModal" class="modal">
+        <div class="modal-content">
+            <h2>ဘဏ်အကောင့်အသစ်ထည့်ရန်</h2>
+            <form id="addAccountForm">
+                <input type="text" placeholder="ဘဏ်အမည်" required>
+                <input type="text" placeholder="အကောင့်နံပါတ်" required>
+                <input type="text" placeholder="အကောင့်ပိုင်ရှင်အမည်" required>
+                <select name="account_type" required>
+                    <option value="bank">ဘဏ်</option>
+                    <option value="wallet">Mobile Wallet</option>
+                </select>
+                <button type="submit">ထည့်သွင်းမည်</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7K Lottery - Agent Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="agent.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="agent-body">
+    <nav class="agent-nav">
+        <div class="nav-left">
+            <div class="logo">7K Lottery - Agent</div>
+        </div>
+        <div class="nav-right">
+            <span class="balance">လက်ကျန်ငွေ: <span id="agentBalance">0.00</span> Ks</span>
+            <span class="agent-name" id="agentName">Agent Name</span>
+            <button class="logout-btn">ထွက်ရန်</button>
+        </div>
+    </nav>
+
+    <div class="agent-container">
+        <div class="sidebar">
+            <ul class="menu">
+                <li class="active" data-page="dashboard">
+                    <i class="fas fa-chart-line"></i> ပင်မစာမျက်နှာ
+                </li>
+                <li data-page="users">
+                    <i class="fas fa-users"></i> သုံးစွဲသူများ
+                </li>
+                <li data-page="transactions">
+                    <i class="fas fa-exchange-alt"></i> ငွေကြေးမှတ်တမ်း
+                </li>
+                <li data-page="commission">
+                    <i class="fas fa-percentage"></i> ကော်မရှင်
+                </li>
+                <li data-page="reports">
+                    <i class="fas fa-file-alt"></i> အစီရင်ခံစာများ
+                </li>
+            </ul>
+        </div>
+
+        <main class="main-content">
+            <!-- Dashboard Overview -->
+            <div class="page-content" id="dashboard-page">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>သုံးစွဲသူအရေအတွက်</h3>
+                        <div class="stat-value" id="totalUsers">0</div>
+                        <div class="stat-change">+0 ယနေ့</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>စုစုပေါင်းထီထိုးငွေ</h3>
+                        <div class="stat-value" id="totalBets">0 Ks</div>
+                        <div class="stat-change">+0 ယနေ့</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>ကော်မရှင်</h3>
+                        <div class="stat-value" id="totalCommission">0 Ks</div>
+                        <div class="stat-change">+0 ယနေ့</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>အနိုင်ရသူများ</h3>
+                        <div class="stat-value" id="totalWinners">0</div>
+                        <div class="stat-change">+0 ယနေ့</div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2>အမြန်လုပ်ဆောင်ချက်များ</h2>
+                    <div class="actions-grid">
+                        <button class="action-btn" id="addUserBtn">
+                            <i class="fas fa-user-plus"></i>
+                            သုံးစွဲသူအသစ်ထည့်ရန်
+                        </button>
+                        <button class="action-btn" id="addBalanceBtn">
+                            <i class="fas fa-plus-circle"></i>
+                            ငွေဖြည့်ပေးရန်
+                        </button>
+                        <button class="action-btn" id="withdrawBtn">
+                            <i class="fas fa-minus-circle"></i>
+                            ငွေထုတ်ပေးရန်
+                        </button>
+                        <button class="action-btn" id="checkResultsBtn">
+                            <i class="fas fa-trophy"></i>
+                            ထီပေါက်စဉ်ကြည့်ရန်
+                        </button>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h2>နောက်ဆုံးလုပ်ဆောင်ချက်များ</h2>
+                    <div class="activity-list" id="recentActivities">
+                        <!-- Activities will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Management -->
+            <div class="page-content hidden" id="users-page">
+                <div class="page-header">
+                    <h2>သုံးစွဲသူများ စီမံခန့်ခွဲရန်</h2>
+                    <div class="search-box">
+                        <input type="text" placeholder="ဖုန်းနံပါတ်ဖြင့်ရှာရန်...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="users-list" id="usersList">
+                    <!-- Users will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Transactions -->
+            <div class="page-content hidden" id="transactions-page">
+                <div class="page-header">
+                    <h2>ငွေကြေးမှတ်တမ်းများ</h2>
+                    <div class="filters">
+                        <select id="transactionType">
+                            <option value="all">အားလုံး</option>
+                            <option value="deposit">ငွေသွင်း</option>
+                            <option value="withdraw">ငွေထုတ်</option>
+                        </select>
+                        <input type="date" id="transactionDate">
+                    </div>
+                </div>
+                <div class="transactions-list" id="transactionsList">
+                    <!-- Transactions will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Commission -->
+            <div class="page-content hidden" id="commission-page">
+                <div class="commission-summary">
+                    <h2>ကော်မရှင်အချက်အလက်များ</h2>
+                    <div class="commission-stats">
+                        <div class="commission-card">
+                            <h3>ယနေ့ကော်မရှင်</h3>
+                            <div class="amount" id="todayCommission">0 Ks</div>
+                        </div>
+                        <div class="commission-card">
+                            <h3>ယခုလကော်မရှင်</h3>
+                            <div class="amount" id="monthCommission">0 Ks</div>
+                        </div>
+                        <div class="commission-card">
+                            <h3>စုစုပေါင်းကော်မရှင်</h3>
+                            <div class="amount" id="totalCommissionAll">0 Ks</div>
+                        </div>
+                    </div>
+                    <div class="commission-history" id="commissionHistory">
+                        <!-- Commission history will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports -->
+            <div class="page-content hidden" id="reports-page">
+                <div class="page-header">
+                    <h2>အစီရင်ခံစာများ</h2>
+                    <div class="report-filters">
+                        <select id="reportType">
+                            <option value="daily">နေ့စဉ်</option>
+                            <option value="weekly">အပတ်စဉ်</option>
+                            <option value="monthly">လစဉ်</option>
+                        </select>
+                        <button class="generate-btn">အစီရင်ခံစာထုတ်ရန်</button>
+                    </div>
+                </div>
+                <div class="reports-content" id="reportsContent">
+                    <!-- Reports will be populated by JavaScript -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="addUserModal" class="modal">
+        <div class="modal-content">
+            <h2>သုံးစွဲသူအသစ်ထည့်ရန်</h2>
+            <form id="addUserForm">
+                <input type="text" placeholder="ဖုန်းနံပါတ်" required>
+                <input type="text" placeholder="အမည်" required>
+                <button type="submit">ထည့်သွင်းမည်</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="balanceModal" class="modal">
+        <div class="modal-content">
+            <h2>ငွေဖြည့်/ထုတ်ရန်</h2>
+            <form id="balanceForm">
+                <input type="text" placeholder="ဖုန်းနံပါတ်" required>
+                <input type="number" placeholder="ငွေပမာဏ" required>
+                <select name="transaction_type" required>
+                    <option value="deposit">ငွေဖြည့်မည်</option>
+                    <option value="withdraw">ငွေထုတ်မည်</option>
+                </select>
+                <button type="submit">အတည်ပြုမည်</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="agent.js"></script>
+</body>
+</html>

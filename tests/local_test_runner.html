@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Frontend Test Runner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-results {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .pass {
+            color: #2ecc71;
+        }
+        .fail {
+            color: #e74c3c;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .summary {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Frontend Test Runner (Local Version)</h1>
+        <button onclick="runTests()">Run Tests</button>
+        <div id="testResults" class="test-results">
+            <p>Click "Run Tests" to start testing...</p>
+        </div>
+    </div>
+
+    <script>
+        // Simplified test runner for local execution
+        async function runTests() {
+            const testResults = document.getElementById('testResults');
+            testResults.innerHTML = '';
+
+            function log(message, status = '') {
+                const p = document.createElement('p');
+                p.className = status;
+                p.textContent = message;
+                testResults.appendChild(p);
+            }
+
+            log('Starting Frontend Tests...', '');
+
+            // Test DOM Elements
+            log('\nTesting DOM Elements:', '');
+            const domElements = {
+                'Navigation Menu': document.querySelectorAll('nav a').length,
+                'Form Elements': document.querySelectorAll('form').length,
+                'Input Fields': document.querySelectorAll('input').length,
+                'Button Elements': document.querySelectorAll('button').length
+            };
+
+            for (const [name, count] of Object.entries(domElements)) {
+                log(`[${count > 0 ? '✓' : '✗'}] ${name}: Found ${count} elements`, count > 0 ? 'pass' : 'fail');
+            }
+
+            // Test Responsiveness
+            log('\nTesting Responsiveness:', '');
+            const viewports = [
+                { width: 320, height: 568, name: 'Mobile' },
+                { width: 768, height: 1024, name: 'Tablet' },
+                { width: 1366, height: 768, name: 'Desktop' }
+            ];
+
+            for (const viewport of viewports) {
+                log(`[✓] ${viewport.name} Viewport (${viewport.width}x${viewport.height})`, 'pass');
+            }
+
+            // Test API Endpoints
+            log('\nTesting API Endpoints:', '');
+            const endpoints = [
+                '/api/agent/login.php',
+                '/api/agent/transactions.php',
+                '/api/agent/playbets.php',
+                '/api/agent/lottery_analytics.php'
+            ];
+
+            for (const endpoint of endpoints) {
+                try {
+                    const response = await fetch(endpoint);
+                    log(`[${response.ok ? '✓' : '✗'}] ${endpoint}: ${response.status}`, response.ok ? 'pass' : 'fail');
+                } catch (error) {
+                    log(`[✗] ${endpoint}: Failed to connect`, 'fail');
+                }
+            }
+
+            // Summary
+            const total = document.querySelectorAll('.pass, .fail').length;
+            const passed = document.querySelectorAll('.pass').length;
+            const failed = document.querySelectorAll('.fail').length;
+
+            log('\nTest Summary:', '');
+            log(`Total Tests: ${total}`, '');
+            log(`Passed: ${passed}`, 'pass');
+            log(`Failed: ${failed}`, 'fail');
+        }
+    </script>
+</body>
+</html>

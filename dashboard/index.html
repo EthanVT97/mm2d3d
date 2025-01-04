@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7K Lottery - Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-body">
+    <nav class="dashboard-nav">
+        <div class="nav-left">
+            <div class="logo">7K Lottery</div>
+        </div>
+        <div class="nav-right">
+            <span class="balance">လက်ကျန်ငွေ: <span id="userBalance">0.00</span> Ks</span>
+            <button class="deposit-btn">ငွေဖြည့်ရန်</button>
+            <button class="logout-btn">ထွက်ရန်</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="user-info">
+                <i class="fas fa-user-circle"></i>
+                <span id="userName">User Name</span>
+                <span id="userPhone">Phone Number</span>
+            </div>
+            <ul class="menu">
+                <li class="active"><i class="fas fa-home"></i> ပင်မစာမျက်နှာ</li>
+                <li><i class="fas fa-history"></i> လုပ်ဆောင်မှုမှတ်တမ်း</li>
+                <li><i class="fas fa-trophy"></i> ထီပေါက်စဉ်များ</li>
+                <li><i class="fas fa-wallet"></i> ငွေဖြည့်/ထုတ်ရန်</li>
+            </ul>
+        </div>
+
+        <main class="main-content">
+            <div class="lottery-types">
+                <div class="lottery-card" data-type="2D">
+                    <h3>2D ထီ</h3>
+                    <p>နေ့စဉ် ၁၀:၃၀ နှင့် ၁၆:၃၀</p>
+                    <button>ထိုးမည်</button>
+                </div>
+                <div class="lottery-card" data-type="3D">
+                    <h3>3D ထီ</h3>
+                    <p>လစဉ် ၁ ရက်နေ့</p>
+                    <button>ထိုးမည်</button>
+                </div>
+                <div class="lottery-card" data-type="Thai">
+                    <h3>Thai ထီ</h3>
+                    <p>လစဉ် ၁ နှင့် ၁၆ ရက်</p>
+                    <button>ထိုးမည်</button>
+                </div>
+                <div class="lottery-card" data-type="Lao">
+                    <h3>Lao ထီ</h3>
+                    <p>အင်္ဂါ နှင့် သောကြာ</p>
+                    <button>ထိုးမည်</button>
+                </div>
+            </div>
+
+            <div class="recent-results">
+                <h2>နောက်ဆုံးထီပေါက်စဉ်များ</h2>
+                <div class="results-grid">
+                    <!-- Results will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="recent-plays">
+                <h2>သင်၏ထီထိုးမှတ်တမ်းများ</h2>
+                <div class="plays-list">
+                    <!-- Play history will be populated by JavaScript -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="depositModal" class="modal">
+        <div class="modal-content">
+            <h2>ငွေဖြည့်ရန်</h2>
+            <div class="deposit-accounts">
+                <!-- Deposit accounts will be populated by JavaScript -->
+            </div>
+            <form id="depositForm">
+                <input type="number" placeholder="ငွေပမာဏ" required>
+                <input type="text" placeholder="ငွေလွှဲပြေစာအမှတ်" required>
+                <button type="submit">အတည်ပြုမည်</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="playModal" class="modal">
+        <div class="modal-content">
+            <h2>ထီထိုးရန်</h2>
+            <form id="playForm">
+                <input type="text" placeholder="ထီနံပါတ်" required>
+                <input type="number" placeholder="ငွေပမာဏ" required>
+                <button type="submit">ထိုးမည်</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>
