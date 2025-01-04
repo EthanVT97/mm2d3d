@@ -1,7 +1,10 @@
 // Initialize Supabase client
 const SUPABASE_URL = 'https://jaubdheyosmukdxvctbq.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImphdWJkaGV5b3NtdWtkeHZjdGJxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU5ODEyNjksImV4cCI6MjA1MTU1NzI2OX0.0jN_29eZTDqWaWlkIuFnyHTiSGOfv_5Ie2jnsT9J6FA';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImphdWJkaGV5b3NtdWtkeHZjdGJxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjU5ODEyNjksImV4cCI6MjA1MTU1NzI2OX0.0jN_29eZTDqWaWlkIuFnyHTiSGOfv_5Ie2jnsT9J6FA';
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Get base path for GitHub Pages
+const BASE_PATH = '/mm2d3d';
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -29,7 +32,7 @@ window.addEventListener('scroll', function() {
 async function checkAuthStatus() {
     const user = localStorage.getItem('user');
     if (!user) {
-        window.location.href = '/auth/';
+        window.location.href = `${BASE_PATH}/auth/`;
         return null;
     }
     
@@ -44,7 +47,7 @@ async function checkAuthStatus() {
 
         if (error || !data) {
             localStorage.removeItem('user');
-            window.location.href = '/auth/';
+            window.location.href = `${BASE_PATH}/auth/`;
             return null;
         }
 
@@ -52,7 +55,7 @@ async function checkAuthStatus() {
     } catch (error) {
         console.error('Auth error:', error);
         localStorage.removeItem('user');
-        window.location.href = '/auth/';
+        window.location.href = `${BASE_PATH}/auth/`;
         return null;
     }
 }
@@ -61,7 +64,7 @@ async function checkAuthStatus() {
 async function logout() {
     try {
         localStorage.removeItem('user');
-        window.location.href = '/auth/';
+        window.location.href = `${BASE_PATH}/auth/`;
     } catch (error) {
         console.error('Error logging out:', error.message);
     }
@@ -107,7 +110,7 @@ async function initializeDashboard() {
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize dashboard if we're on the dashboard page
-    if (window.location.pathname.includes('/dashboard')) {
+    if (window.location.pathname.includes(`${BASE_PATH}/dashboard`)) {
         initializeDashboard();
     }
 
@@ -123,29 +126,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Navigation handlers
 document.querySelector('.login-btn')?.addEventListener('click', function() {
-    window.location.href = '/auth/';
+    window.location.href = `${BASE_PATH}/auth/`;
 });
 
 document.querySelector('.register-btn')?.addEventListener('click', function() {
-    window.location.href = '/auth/';
+    window.location.href = `${BASE_PATH}/auth/`;
 });
 
 document.querySelector('.cta-button')?.addEventListener('click', function() {
     const user = localStorage.getItem('user');
     if (user) {
-        window.location.href = '/dashboard/';
+        window.location.href = `${BASE_PATH}/dashboard/`;
     } else {
-        window.location.href = '/auth/';
+        window.location.href = `${BASE_PATH}/auth/`;
     }
 });
 
 // Button click handlers
 document.querySelector('.login-btn').addEventListener('click', function() {
-    window.location.href = '/auth/';
+    window.location.href = `${BASE_PATH}/auth/`;
 });
 
 document.querySelector('.register-btn').addEventListener('click', function() {
-    window.location.href = '/auth/';
+    window.location.href = `${BASE_PATH}/auth/`;
     // Add a small delay to ensure the page loads before switching tabs
     setTimeout(() => {
         const registerTab = document.querySelector('.tab:last-child');
@@ -158,9 +161,9 @@ document.querySelector('.register-btn').addEventListener('click', function() {
 document.querySelector('.cta-button').addEventListener('click', function() {
     const user = checkAuthStatus();
     if (user) {
-        window.location.href = '/agent/';
+        window.location.href = `${BASE_PATH}/agent/`;
     } else {
-        window.location.href = '/auth/';
+        window.location.href = `${BASE_PATH}/auth/`;
     }
 });
 
